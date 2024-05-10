@@ -1,13 +1,13 @@
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import FlaskForm
+from flask import Flask, flash, render_template
+from flask_wtf import FlaskForm 
 from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Email
 import os
 
 app = Flask(__name__)
 
-app.config['secret_key'] = os.environ.get('SECRET_KEY')
+# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.secret_key = 'FCx20gm4Lp'
 
 class ContactForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
@@ -24,10 +24,13 @@ def contact():
         name = form.name.data
         email = form.email.data
         message = form.message.data
+        
         # Here you can handle the form submission, for example, sending an email
         # For demonstration, just print the form data
         print(f"Name: {name}, Email: {email}, Message: {message}")
-        return 'Thank you for your message!'
+
+        flash(f"Name: {name}, Email: {email}, Message: {message}")
+        # return 'Thank you for your message!'
     return render_template('contact.html', form=form)
 
 if __name__ == '__main__':
