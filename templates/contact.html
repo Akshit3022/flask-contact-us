@@ -5,6 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
 </head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ae2007;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    form {
+        width: 300px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    form p {
+        margin: 10px 0;
+    }
+
+    .messages {
+        list-style: none;
+        padding: 0;
+    }
+
+    .messages li {
+        color: #900;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .g-recaptcha {
+        margin-bottom: 20px;
+    }
+</style>
 <body>
     <center>
         <h1>Contact Us</h1>
@@ -18,10 +60,12 @@
         {% endif %}
         {% endwith %}
         <form method="POST">
+            {{ form.csrt_token }}
             {{ form.hidden_tag() }}
             <p>{{ form.name.label }}<br>{{ form.name}}</p>
             <p>{{ form.email.label }}<br>{{ form.email}}</p>
             <p>{{ form.message.label }}<br>{{ form.message}}</p>
+            <p>{{ form.recaptcha }}</p>
             <p>{{ form.submit() }}</p>
         </form> 
     </center>
